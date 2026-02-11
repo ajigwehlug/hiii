@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hahaha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffc5d9 0%, #ffb3d9 50%, #ffd4e5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        .teddy {
+            font-size: 150px;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .question {
+            font-size: 2em;
+            color: #ff69b4;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            color: #666;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .no-btn:hover {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Flowers */
+        .flower {
+            position: absolute;
+            font-size: 50px;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .flower1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .flower2 { top: 15%; right: 15%; animation-delay: 2s; }
+        .flower3 { bottom: 10%; left: 15%; animation-delay: 4s; }
+        .flower4 { bottom: 15%; right: 10%; animation-delay: 1s; }
+        .flower5 { top: 50%; left: 5%; animation-delay: 3s; }
+        .flower6 { top: 50%; right: 5%; animation-delay: 5s; }
+
+        /* Hearts floating */
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            color: #ff69b4;
+            animation: floatUp 6s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart1 { left: 10%; animation-delay: 0s; }
+        .heart2 { left: 30%; animation-delay: 2s; }
+        .heart3 { left: 50%; animation-delay: 4s; }
+        .heart4 { left: 70%; animation-delay: 1s; }
+        .heart5 { left: 90%; animation-delay: 3s; }
+
+        /* Wrong answer screen */
+        .wrong-answer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff1493;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: shake 0.5s infinite;
+        }
+
+        .wrong-answer h1 {
+            color: white;
+            font-size: 4em;
+            margin-bottom: 30px;
+        }
+
+        .wrong-answer p {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .try-again-btn {
+            background: white;
+            color: #ff1493;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .try-again-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Success screen */
+        .success {
+            display: none;
+        }
+
+        .success h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .success .celebration {
+            font-size: 100px;
+            margin: 20px 0;
+        }
+
+        .success p {
+            font-size: 1.5em;
+            color: #ff69b4;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating flowers -->
+    <div class="flower flower1">🌸</div>
+    <div class="flower flower2">🌺</div>
+    <div class="flower flower3">🌻</div>
+    <div class="flower flower4">🌷</div>
+    <div class="flower flower5">🌹</div>
+    <div class="flower flower6">🌼</div>
+
+    <!-- Floating hearts -->
+    <div class="heart heart1">💕</div>
+    <div class="heart heart2">💕</div>
+    <div class="heart heart3">💕</div>
+    <div class="heart heart4">💕</div>
+    <div class="heart heart5">💕</div>
+
+    <!-- Main container -->
+    <div class="container" id="mainContainer">
+        <h1>Hey Beautiful! 💕</h1>
+        <div class="teddy">🧸</div>
+        <div class="question">Aseda Efua April Asare-Djan will you be my Valentine?</div>
+        <div class="buttons">
+            <button class="yes-btn" onclick="sayYes()">Yes! 💖</button>
+            <button class="no-btn" onclick="sayNo()">No</button>
+        </div>
+    </div>
+
+    <!-- Success screen -->
+    <div class="container success" id="successScreen">
+        <h1>Yaaaay! 🎉</h1>
+        <div class="celebration">💕🎊🧸🌹💐</div>
+        <p>
+             😊<br>
+            I love you! 💖
+        </p>
+    </div>
+
+    <!-- Wrong answer screen -->
+    <div class="wrong-answer" id="wrongScreen">
+        <h1>❌ WRONG ANSWER! ❌</h1>
+        <p>There's only ONE correct answer... 😤</p>
+        <p>And that answer is YES! 💕</p>
+        <button class="try-again-btn" onclick="tryAgain()">Try Again!</button>
+    </div>
+
+    <script>
+        function sayYes() {
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('successScreen').style.display = 'block';
+            
+            // Create confetti effect
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+        }
+
+        function sayNo() {
+            document.getElementById('wrongScreen').style.display = 'flex';
+        }
+
+        function tryAgain() {
+            document.getElementById('wrongScreen').style.display = 'none';
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.fontSize = '30px';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-50px';
+            confetti.style.zIndex = '9999';
+            confetti.innerHTML = ['💕', '💖', '💗', '💝', '🌹', '🌺', '🎀'][Math.floor(Math.random() * 7)];
+            
+            document.body.appendChild(confetti);
+            
+            const duration = 3000 + Math.random() * 2000;
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${window.innerHeight + 100}px) rotate(${360 * (Math.random() * 4)}deg)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }
+
+        // Make hearts continuously float
+        setInterval(() => {
+            const hearts = document.querySelectorAll('.heart');
+            hearts.forEach(heart => {
+                heart.style.bottom = '0';
+            });
+        }, 6000);
+    </script>
+</body>
+</html>
